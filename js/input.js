@@ -1,7 +1,12 @@
 export class InputHandler {
   constructor(){
+
+    const backgroundSound = document.querySelector('#backgroundSound')
+    backgroundSound.volume = .5
+
     this._keys = [];
     window.addEventListener('keydown', (element) => {
+      backgroundSound.play()
 
        if ((element.key === 'ArrowUp' ||
             //element.key === 'ArrowDown' ||
@@ -11,7 +16,6 @@ export class InputHandler {
           && this._keys.indexOf(element.key) === -1) { 
         
             this._keys.push(element.key);
-            console.log(this._keys)  
       } 
       
     })
@@ -25,7 +29,6 @@ export class InputHandler {
           element.key === ' ') { 
        
            this._keys.splice(this._keys.indexOf(element.key), 1);
-           console.log(this._keys)  
      } 
      
    })
