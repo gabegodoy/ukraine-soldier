@@ -13,6 +13,6 @@ canvas{
   max-height: 100vh;
 }
 
-#player{
+img{
   display: none;
 }
