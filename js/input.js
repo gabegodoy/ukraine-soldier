@@ -1,10 +1,12 @@
 export class InputHandler {
-  constructor(){
+  constructor(game){
 
     const backgroundSound = document.querySelector('#backgroundSound')
     backgroundSound.volume = .5
 
+    this._game = game;
     this._keys = [];
+
     window.addEventListener('keydown', (element) => {
       backgroundSound.play()
 
@@ -17,6 +19,9 @@ export class InputHandler {
         
             this._keys.push(element.key);
       } 
+      else if(element.key === 'd') {
+        this._game._debug = !this._game._debug;
+      }
       
     })
 

@@ -37,6 +37,7 @@ export class Player {
   }
   
   update(input, deltaTime){
+    this.checkCollision()
     this._currentState.handleInput(input);
 
     //HORIZONTAL MOVE
@@ -75,6 +76,7 @@ export class Player {
   }
   
   draw(context){
+    if(this._game._debug) context.strokeRect(this._x, this._y, this._width, this._height)
     context.drawImage(this._image, this._x, this._y, this._width, this._height) //14:00
   }
   onGround(){
@@ -108,5 +110,23 @@ export class Player {
     this._game._speed = speed
     this._currentState.enter();
 
+  }
+  checkCollision(){
+    this._game._enemies.forEach(enemy => {
+      if(
+        enemy._x < this._x + this._width &&
+        enemy._x + enemy._width > this._x &&
+        enemy._y < this._y + this._height &&
+        enemy._y + enemy._height > this._y
+        ){
+          enemy._markedForDeletion = true;
+          this._game._score++;
+          console.log('hit')
+      }
+
+/*       else{
+
+      } */
+    });
   }
 }

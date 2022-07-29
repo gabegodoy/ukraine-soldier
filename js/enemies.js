@@ -18,6 +18,7 @@ class Enemy {
   }
 
   draw(context){
+    if(this._game._debug) context.strokeRect(this._x, this._y, this._width, this._height)
     context.drawImage(this._image, this._x, this._y, this._width, this._height) 
   }
 }
