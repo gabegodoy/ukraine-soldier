@@ -1,4 +1,4 @@
-class Enemy {
+export class Enemy {
   constructor(game){
     this._frameX = 0;
     this._frameY = 0;
@@ -52,4 +52,6 @@ export class WalkingEnemy extends Enemy {
     super.update(deltaTime);
 
   }
+
+
 }

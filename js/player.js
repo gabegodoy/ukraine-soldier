@@ -13,6 +13,7 @@ export class Player {
     this._y = (this._game._height - this._height - this._game._groundMargin);
     this._vy = 0;
     this._weight = 1;
+    console.log(this._game._enemy)
 
     this._images = document.querySelectorAll('#player'); 
     this._image = this._images[0];
@@ -28,12 +29,12 @@ export class Player {
     this._jump.volume = .3
     this._enemyDeath = document.querySelector('#enemyDeath')
 
-    
+
     this._fps = 20;
     this._frameInterval = 1000/this._fps;
     this._frameTimer = 0;
     this._speed = 0;
-    this._maxSpeed = 1.5;
+    this._maxSpeed = 1;
     this._states = [new Stopped(this), new Running(this), new Jumping(this), new Shooting (this), new Dead(this)];
     this._currentState = this._states[0];
     this._currentState.enter();
@@ -47,12 +48,12 @@ export class Player {
     this._x += this._speed
     if (input.includes('ArrowRight')){ 
       this._speed = this._maxSpeed;         
-      this.walk()
+      //this.walk()
     }
     
     else if (input.includes('ArrowLeft')){ 
       this._speed = -this._maxSpeed;
-      this.walk()
+      //this.walk()
     }
     
     else this._speed = 0;
@@ -86,14 +87,20 @@ export class Player {
     return this._y >= this._game._height - this._height -this._game._groundMargin
   }
   walk(){
-    if (this._image === this._images[0]){
-      this._step1.play()
-      setTimeout(() => this._image = this._images[1], 120) 
+    this._walkInterval = setInterval(() => {
+      
+      if (this._image === this._images[0]){
+        this._step1.play()
+        this._image = this._images[1] 
       }
-    else if (this._image === this._images[1]){ 
-      this._step2.play()
-      setTimeout(() => this._image = this._images[0], 120) 
+      else if (this._image === this._images[1]){ 
+        this._step2.play()
+        this._image = this._images[0]
       }
+    }, 120);
+  }
+  stopWalking(){
+    clearInterval(this._walkInterval)
   }
   jump(){
     this._image = this._images[2]
@@ -113,6 +120,7 @@ export class Player {
     this._height = 90.5
     this._game._groundMargin = 70;
     this._image = this._images[4]
+    this._maxSpeed = 0
     // AUDIO this._death.play()
   }
   setState(state, speed){
@@ -123,16 +131,22 @@ export class Player {
   }
   checkCollision(){
     this._game._enemies.forEach(enemy => {
+      
+      this._defaultWidth = 87.5;
+
       if(
-        enemy._x < this._x + this._width &&
+        enemy._x < this._x + this._defaultWidth &&
         enemy._x + enemy._width > this._x &&
         enemy._y < this._y + this._height &&
         enemy._y + enemy._height > this._y
         ){
+                 
+          
+          //this._game._score++;        
           enemy._markedForDeletion = true;
-          this._game._score++;
           this._game._life--
-          if (this._game._life < 0){
+          
+          if (this._game._life <= 0){
             console.log('death')
             this.setState(4, 0)
           }
@@ -142,5 +156,12 @@ export class Player {
 
       } */
     });
+  }
+  killEnemy(enemy){
+    console.log(enemy)
+    
+    //this._image = this._images[2]
+    
+    //setInterval(enemy._markedForDeletion = true, 10000)
   }
 }

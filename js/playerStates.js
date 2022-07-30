@@ -19,7 +19,7 @@ export class Stopped extends State {
     this._player = player;
   }
   enter(){
-
+    this._player.stopWalking()
   }
   handleInput(input){
     if (input.includes('ArrowLeft') || input.includes('ArrowRight')){
@@ -31,6 +31,10 @@ export class Stopped extends State {
     else if (input.includes(' ')){
       this._player.setState(states.SHOOTING, .5);
     }
+    else if (this._player._game._life === 0){
+      this._player.setState(states.DEAD, 0);
+    }
+
   }
 }
 
@@ -40,7 +44,8 @@ export class Running extends State {
     this._player = player;
   }
   enter(){
-    //this._player.walk()
+    this._player.walk()
+
   }
   handleInput(input){
     if (input.includes('ArrowUp')){
@@ -48,6 +53,9 @@ export class Running extends State {
     }
     else if (input.length == 0){
       this._player.setState(states.STOPPED, 0);
+    }
+    else if (this._player._game._life === 0){
+      this._player.setState(states.DEAD, 0);
     }
   }
 }
@@ -63,8 +71,21 @@ export class Jumping extends State {
   }
   handleInput(input){
     if (this._player.onGround()) this._player.setState(states.STOPPED, 0)
-    
+    else if (this._player._game._life === 0){
+      this._player.setState(states.DEAD, 0);
+    }
+    else if (input.includes('ArrowLeft') || input.includes('ArrowRight') && !this._player.onGround()){
+      this._player.setState(states.JUMPING, 1);
+    }
+    else if (input.includes('ArrowUp') && !this._player.onGround()){
+      this._player.setState(states.JUMPING, 1);
+    }
+    else if (input.includes(' ') && !this._player.onGround()){
+      this._player.setState(states.JUMPING, 1);
+    } 
   }
+  
+  
 }
 
 export class Shooting extends State {
@@ -78,7 +99,19 @@ export class Shooting extends State {
     console.log(this._shots)
     if (this._shots >= 20 &&
         this._player._game._enemies.length > 0){
-      this._player._game._enemies[0]._markedForDeletion = true
+      
+      
+
+          this._player._game._enemies[0]._image = this._player._game._enemies[0]._images[2]
+          this._player._game._enemies[0]._speedX = 0
+          this._player._game._enemies[0]._width = 171
+          this._player._game._enemies[0]._height = 125
+          this._player._game._enemies[0]._y = 340
+          this._interval = setInterval(() => {
+            this._player._game._enemies[0]._markedForDeletion = true
+            clearInterval(this._interval)
+          }, 500);
+
       this._shots = 0
     
       this._player._enemyDeath.play()
@@ -87,6 +120,9 @@ export class Shooting extends State {
   }
   handleInput(input){
     if (this._player.onGround()) this._player.setState(states.STOPPED, 0)
+    else if (this._player._game._life === 0){
+      this._player.setState(states.DEAD, 0);
+    }
     
   }
 }
@@ -95,13 +131,25 @@ export class Dead extends State {
   constructor(player){
     super('DEAD')
     this._player = player;
+    
   }
   enter(){
     this._player.die()
     //this._player._image = this._player._images[4]
   }
   handleInput(input){
-    if (this._player.onGround()) this._player.setState(states.STOPPED, 0)
+    //if (this._player.onGround()) this._player.setState(states.STOPPED, 0)
+    //this._player._currentState
+
+    if (input.includes('ArrowLeft') || input.includes('ArrowRight')){
+      this._player.setState(states.DEAD, 0);
+    }
+    else if (input.includes('ArrowUp')){
+      this._player.setState(states.DEAD, 0);
+    }
+    else if (input.includes(' ')){
+      this._player.setState(states.DEAD, 0);
+    } 
     
   }
 }
