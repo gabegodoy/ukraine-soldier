@@ -3,6 +3,7 @@ const states = {
   RUNNING: 1,
   JUMPING: 2, 
   SHOOTING: 3,
+  DEAD: 4
 }
 
 class State {
@@ -70,9 +71,34 @@ export class Shooting extends State {
   constructor(player){
     super('SHOOTING')
     this._player = player;
+    this._shots = 0;
   }
   enter(){
-    //this._player.shoot();
+    this._shots++
+    console.log(this._shots)
+    if (this._shots >= 20 &&
+        this._player._game._enemies.length > 0){
+      this._player._game._enemies[0]._markedForDeletion = true
+      this._shots = 0
+    
+      this._player._enemyDeath.play()
+    
+    }
+  }
+  handleInput(input){
+    if (this._player.onGround()) this._player.setState(states.STOPPED, 0)
+    
+  }
+}
+
+export class Dead extends State {
+  constructor(player){
+    super('DEAD')
+    this._player = player;
+  }
+  enter(){
+    this._player.die()
+    //this._player._image = this._player._images[4]
   }
   handleInput(input){
     if (this._player.onGround()) this._player.setState(states.STOPPED, 0)

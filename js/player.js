@@ -2,6 +2,7 @@ import { Stopped } from "./playerStates.js";
 import { Running } from "./playerStates.js";
 import { Jumping } from "./playerStates.js";
 import { Shooting } from "./playerStates.js";
+import { Dead } from "./playerStates.js";
 
 export class Player {
   constructor(game){
@@ -25,13 +26,15 @@ export class Player {
     this._step2.volume = .6
     this._jump = document.querySelector('#jumpSound')
     this._jump.volume = .3
+    this._enemyDeath = document.querySelector('#enemyDeath')
 
+    
     this._fps = 20;
     this._frameInterval = 1000/this._fps;
     this._frameTimer = 0;
     this._speed = 0;
-    this._maxSpeed = 2.5;
-    this._states = [new Stopped(this), new Running(this), new Jumping(this), new Shooting (this)];
+    this._maxSpeed = 1.5;
+    this._states = [new Stopped(this), new Running(this), new Jumping(this), new Shooting (this), new Dead(this)];
     this._currentState = this._states[0];
     this._currentState.enter();
   }
@@ -85,11 +88,11 @@ export class Player {
   walk(){
     if (this._image === this._images[0]){
       this._step1.play()
-      setTimeout(() => this._image = this._images[1], 90) 
+      setTimeout(() => this._image = this._images[1], 120) 
       }
     else if (this._image === this._images[1]){ 
       this._step2.play()
-      setTimeout(() => this._image = this._images[0], 90) 
+      setTimeout(() => this._image = this._images[0], 120) 
       }
   }
   jump(){
@@ -104,6 +107,13 @@ export class Player {
     
     setTimeout(() => this._image = this._images[0], 20) 
     setTimeout(() => this._width = 87.5, 20)
+  }
+  die(){
+    this._width = 168
+    this._height = 90.5
+    this._game._groundMargin = 70;
+    this._image = this._images[4]
+    // AUDIO this._death.play()
   }
   setState(state, speed){
     this._currentState = this._states[state]
@@ -121,7 +131,11 @@ export class Player {
         ){
           enemy._markedForDeletion = true;
           this._game._score++;
-          console.log('hit')
+          this._game._life--
+          if (this._game._life < 0){
+            console.log('death')
+            this.setState(4, 0)
+          }
       }
 
 /*       else{

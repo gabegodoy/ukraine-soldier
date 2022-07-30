@@ -2,6 +2,7 @@ import { Player } from './player.js'
 import { InputHandler } from "./input.js";
 import { Background } from "./background.js";
 import { WalkingEnemy } from "./enemies.js";
+import { UI } from "./UI.js";
 
 
 window.addEventListener('load', function(){
@@ -22,11 +23,13 @@ window.addEventListener('load', function(){
       this._player = new Player(this);
       this._background = new Background(this);
       this._input = new InputHandler(this);
+      this._UI = new UI(this);
       this._enemies = [];
       this._enemyTimer = 0;
       this._enemyInterval = 2000;
       this._debug = true;
       this._score = 0;
+      this._life = 3;
     }
     
     update(deltaTime){
@@ -53,6 +56,7 @@ window.addEventListener('load', function(){
         enemy.draw(context)
       })
       this._player.draw(context);
+      this._UI.draw(context);
     }
 
     addEnemy(){
