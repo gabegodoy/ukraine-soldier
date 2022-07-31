@@ -35,9 +35,8 @@ export class Player {
     this._frameTimer = 0;
     this._speed = 0;
     this._maxSpeed = .8;
-    this._states = [new Stopped(this), new Running(this), new Jumping(this), new Shooting (this), new Dead(this)];
-    this._currentState = this._states[0];
-    this._currentState.enter();
+    this._states = [new Stopped(this._game), new Running(this._game), new Jumping(this._game), new Shooting (this._game), new Dead(this._game)];
+
   }
   
   update(input, deltaTime){
@@ -48,12 +47,10 @@ export class Player {
     this._x += this._speed
     if (input.includes('ArrowRight')){ 
       this._speed = this._maxSpeed;         
-      //this.walk()
     }
     
     else if (input.includes('ArrowLeft')){ 
       this._speed = -this._maxSpeed;
-      //this.walk()
     }
     
     else this._speed = 0;
@@ -61,18 +58,16 @@ export class Player {
     if (this._x < 0) this._x = 0;
     if (this._x > this._game._width - this._width) this._x = this._game._width - this._width;
     
-    if (input.includes(' ') && this.onGround() && !input.includes('ArrowRight')){ 
+    if (input.includes(' ') && 
+        this.onGround() && 
+        !input.includes('ArrowRight') &&
+        !input.includes('ArrowLeft') &&
+        this._game._player._currentState._state !== 'DEAD'
+        ){ 
       this.shoot()
     }
 
-    //VERTICAL MOVE
-    /* if (input.includes('ArrowUp') && this.onGround()){ 
-      this._vy -= 20
-      this.jump()
-    } */  
     
-    
-
     this._y += this._vy;
     if (!this.onGround()) this._vy += this._weight
     else { this._vy = 0 }
@@ -80,32 +75,35 @@ export class Player {
   }
   
   draw(context){
-    if(this._game._debug) context.strokeRect(this._x, this._y, this._width, this._height)
+    //if(this._game._debug) context.strokeRect(this._x, this._y, this._width, this._height)
     context.drawImage(this._image, this._x, this._y, this._width, this._height) //14:00
   }
   onGround(){
     return this._y >= this._game._height - this._height -this._game._groundMargin
   }
   walk(){
-    this._walkInterval = setInterval(() => {
-      
-      if (this._image === this._images[0]){
-        this._step1.play()
-        this._image = this._images[1] 
-      }
-      else if (this._image === this._images[1]){ 
-        this._step2.play()
-        this._image = this._images[0]
-      }
-    }, 120);
+    if (this._game._player._currentState._state !== 'DEAD'){
+      this._walkInterval = setInterval(() => {
+        
+        if (this._image === this._images[0]){
+          this._step1.play()
+          this._image = this._images[1] 
+        }
+        else if (this._image === this._images[1]){ 
+          this._step2.play()
+          this._image = this._images[0]
+        }
+      }, 120);
+    }
   }
   stopWalking(){
+    this._image = this._images[0]
     clearInterval(this._walkInterval)
   }
   jump(){
     this._image = this._images[2]
     this._jump.play()
-    setTimeout(() => this._image = this._images[0], 815)
+    //setTimeout(() => this._image = this._images[0], 815)
   }
   shoot(){
     this._width = 215
@@ -118,7 +116,7 @@ export class Player {
   die(){
     this._width = 168
     this._height = 90.5
-    this._game._groundMargin = 70;
+    this._game._groundMargin = 68;
     this._image = this._images[4]
     this._maxSpeed = 0
     // AUDIO this._death.play()

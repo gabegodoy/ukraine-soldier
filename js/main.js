@@ -32,10 +32,12 @@ window.addEventListener('load', function(){
       this._enemies = [];
       this._enemyTimer = 0;
       this._enemyInterval = 2000;
-      this._debug = true;
+      //this._debug = true;
       this._score = 0;
       this._life = 3;
       this._fontColor = '#0057b7';
+      this._player._currentState = this._player._states[0];
+      this._player._currentState.enter();
     }
     
     update(deltaTime){
