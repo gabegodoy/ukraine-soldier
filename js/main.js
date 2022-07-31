@@ -35,6 +35,7 @@ window.addEventListener('load', function(){
       this._debug = true;
       this._score = 0;
       this._life = 3;
+      this._fontColor = '#0057b7';
     }
     
     update(deltaTime){

@@ -1,7 +1,8 @@
 export class UI{
   constructor(game){
     this._game = game;
-    this._fontSIze = 30;
+    this._fontSize = 20;
+    this._fontFamily = 'Helvetica';
 
     this._width = 30;
     this._height = 30;
@@ -12,6 +13,13 @@ export class UI{
   }
   draw(context){
 
+    //DRAWING SCORE
+    context.font = this._fontSize + 'px ' + this._fontFamily;
+    context.textAlign = 'Left';
+    context.fillStyle = this._game._fontColor;
+    context.fillText('Score: ' + this._game._score + '/20', this._game._width - 130 ,30)
+
+    //DRAWING LIFE HEARTS
      if ( this._game._life === 1){
       context.drawImage(this._image, this._x, this._y, this._width, this._height)
     }

@@ -103,6 +103,8 @@ export class Shooting extends State {
 
           if (this._player._game._enemies[0]._image.id === 'enemyWalk') {
             
+            this._player._game._score++; 
+
             this._player._game._enemies[0]._image = this._player._game._enemies[0]._images[2]
             this._player._game._enemies[0]._speedX = 0
             this._player._game._enemies[0]._width = 171

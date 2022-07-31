@@ -34,7 +34,7 @@ export class Player {
     this._frameInterval = 1000/this._fps;
     this._frameTimer = 0;
     this._speed = 0;
-    this._maxSpeed = 1;
+    this._maxSpeed = .8;
     this._states = [new Stopped(this), new Running(this), new Jumping(this), new Shooting (this), new Dead(this)];
     this._currentState = this._states[0];
     this._currentState.enter();
@@ -140,8 +140,7 @@ export class Player {
         enemy._y < this._y + this._height &&
         enemy._y + enemy._height > this._y
         ){
-                 
-          //this._game._score++;        
+                       
           enemy._markedForDeletion = true;
           this._game._life--
           
