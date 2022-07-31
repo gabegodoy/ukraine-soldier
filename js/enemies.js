@@ -71,14 +71,19 @@ export class AirplaneEnemy extends Enemy {
     this._maxFrame = 5;
     this._airplaneSound = document.getElementById('airplaneSound')
     this._airplaneSound.volume = .6
+    this._airplaneSound2 = this._airplaneSound.cloneNode()
+    this._airplaneSound2.volume = .6
 
     
     this._airplaneImage = document.getElementById('enemyAirplane')
     this._explosionImage = document.getElementById('explosion')
     
     this._image = this._airplaneImage;
-    
-    this._airplaneSound.play()
+
+    if(this._airplaneSound.paused) this._airplaneSound.play()
+    else this._airplaneSound2.play()
+
+    console.log(this._airplaneSound.paused)
   }
   
   update(deltaTime){
