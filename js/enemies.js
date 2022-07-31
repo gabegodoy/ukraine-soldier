@@ -31,9 +31,10 @@ export class WalkingEnemy extends Enemy {
     this._height = 172;
     this._x = game._width;
     this._y = 255;
+    this._y = this._game._height - this._height - this._game._groundMargin;
     this._speedX = Math.random() + 1;
     this._speedY = 0;
-    this._maxFrame = 5;
+    this._maxFrame = 1;
     
     this._images = document.querySelectorAll('#enemyWalk');
 
@@ -48,6 +49,38 @@ export class WalkingEnemy extends Enemy {
     }, 250);
   }
 
+  update(deltaTime){
+    super.update(deltaTime);
+
+  }
+
+
+}
+
+
+export class AirplaneEnemy extends Enemy {
+  constructor(game){
+    super();
+    this._game = game;
+    this._width = 242.9;
+    this._height = 122.5;
+    this._x = game._width;
+    this._y = Math.random() * (100 - 0) + 0;
+    this._speedX = 6;
+    this._speedY = 0;
+    this._maxFrame = 5;
+    this._airplaneSound = document.getElementById('airplaneSound')
+    this._airplaneSound.volume = .6
+
+    
+    this._airplaneImage = document.getElementById('enemyAirplane')
+    this._explosionImage = document.getElementById('explosion')
+    
+    this._image = this._airplaneImage;
+    
+    this._airplaneSound.play()
+  }
+  
   update(deltaTime){
     super.update(deltaTime);
 

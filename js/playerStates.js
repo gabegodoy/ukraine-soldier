@@ -100,21 +100,22 @@ export class Shooting extends State {
     if (this._shots >= 20 &&
         this._player._game._enemies.length > 0){
       
-      
 
-          this._player._game._enemies[0]._image = this._player._game._enemies[0]._images[2]
-          this._player._game._enemies[0]._speedX = 0
-          this._player._game._enemies[0]._width = 171
-          this._player._game._enemies[0]._height = 125
-          this._player._game._enemies[0]._y = 340
-          this._interval = setInterval(() => {
-            this._player._game._enemies[0]._markedForDeletion = true
-            clearInterval(this._interval)
-          }, 500);
+          if (this._player._game._enemies[0]._image.id === 'enemyWalk') {
+            
+            this._player._game._enemies[0]._image = this._player._game._enemies[0]._images[2]
+            this._player._game._enemies[0]._speedX = 0
+            this._player._game._enemies[0]._width = 171
+            this._player._game._enemies[0]._height = 125
+            this._player._game._enemies[0]._y = 340
+            this._interval = setInterval(() => {
+              this._player._game._enemies[0]._markedForDeletion = true
+              clearInterval(this._interval)
+              }, 500);
+            this._player._enemyDeath.play()
+            } 
 
       this._shots = 0
-    
-      this._player._enemyDeath.play()
     
     }
   }

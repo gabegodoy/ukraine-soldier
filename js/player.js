@@ -141,7 +141,6 @@ export class Player {
         enemy._y + enemy._height > this._y
         ){
                  
-          
           //this._game._score++;        
           enemy._markedForDeletion = true;
           this._game._life--
@@ -152,16 +151,7 @@ export class Player {
           }
       }
 
-/*       else{
-
-      } */
     });
   }
-  killEnemy(enemy){
-    console.log(enemy)
-    
-    //this._image = this._images[2]
-    
-    //setInterval(enemy._markedForDeletion = true, 10000)
-  }
+
 }
