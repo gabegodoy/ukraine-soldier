@@ -141,16 +141,26 @@ export class Player {
         enemy._y < this._y + this._height &&
         enemy._y + enemy._height > this._y
         ){
-          
-          enemy._markedForDeletion = true;
-          this._game._life--
-          this._playerLostLife.play()
+          if(enemy._image.id === 'landMine'){
+            enemy._image = enemy._explosionImage;    
+            enemy._width = 100;
+            enemy._height = 100;
+            enemy._y = this._game._height - this._game._groundMargin - enemy._height -7
+
+            this._game._landMine._explosionSound.play()
+          }
+         
+           else if (enemy._image.id !== 'landMine'){
+
+            enemy._markedForDeletion = true;
+            this._game._life--
+            this._playerLostLife.play()
+          }             
           
           if (this._game._life <= 0){
             this.setState(4, 0)
           }
       }
-
     });
 
 

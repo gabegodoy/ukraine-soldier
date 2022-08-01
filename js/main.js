@@ -92,14 +92,14 @@ window.addEventListener('load', function(){
     addEnemy(){
       if(this._score < 20 &&
         this._life > 0){
-        if(this._speed > 0){ 
-          this._enemies.push(new WalkingEnemy(this))
-        }
-        if(Math.random() < 0.2){
-          this._enemies.push(new AirplaneEnemy(this))
-        }
         if(Math.random() < 0.3){
         this._enemies.push(new LandMine(this))
+        }
+        if(this._speed > 0){ 
+          this._enemies.push(new WalkingEnemy(this))
+        } 
+        if(Math.random() < 0.2){
+          this._enemies.push(new AirplaneEnemy(this))
         }
       }
       //else if (this._score >= 2) create Puttin

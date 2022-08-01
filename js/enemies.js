@@ -97,16 +97,17 @@ export class LandMine extends Enemy {
     this._width = 45;
     this._height = 20;
     this._x = game._width;
-    this._y = this._game._height - this._height - this._game._groundMargin;    
+    this._y = this._game._height - this._height - this._game._groundMargin - 7;    
     this._speedX = 0
     this._speedY = 0;
     this._maxFrame = 1;
   
-    //this._explosionSound = document.getElementById('airplaneSound')
+    this._explosionSound = document.getElementById('explosionSound')
     this._explosionImage = document.getElementById('explosion')    
     this._landMine = document.getElementById('landMine')
       
     this._image = this._landMine;
+  //  this._image = this._explosionImage;
   }
   
   update(deltaTime){
