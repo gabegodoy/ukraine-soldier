@@ -28,6 +28,9 @@ export class Player {
     this._jump = document.querySelector('#jumpSound')
     this._jump.volume = .3
     this._enemyDeath = document.querySelector('#enemyDeath')
+    this._playerDeath = document.querySelector('#loseGame')
+    this._playerLostLife = document.querySelector('#loseLife')
+    this._extraLife = document.querySelector('#extraLife')
 
 
     this._fps = 20;
@@ -119,36 +122,60 @@ export class Player {
     this._game._groundMargin = 68;
     this._image = this._images[4]
     this._maxSpeed = 0
-    // AUDIO this._death.play()
+    this._playerDeath.play()
   }
   setState(state, speed){
     this._currentState = this._states[state]
     this._game._speed = speed
     this._currentState.enter();
-
+    
   }
   checkCollision(){
     this._game._enemies.forEach(enemy => {
       
       this._defaultWidth = 87.5;
-
+      
       if(
         enemy._x < this._x + this._defaultWidth &&
         enemy._x + enemy._width > this._x &&
         enemy._y < this._y + this._height &&
         enemy._y + enemy._height > this._y
         ){
-                       
+          
           enemy._markedForDeletion = true;
           this._game._life--
+          this._playerLostLife.play()
           
           if (this._game._life <= 0){
-            console.log('death')
             this.setState(4, 0)
           }
       }
 
     });
+
+
+    this._game._lifeCoin.forEach(coin => {
+      
+      
+      if(
+        coin._x < this._x + this._width &&
+        coin._x + coin._width > this._x &&
+        coin._y < this._y + this._height &&
+        coin._y + coin._height > this._y &&
+        this._game._life < 3 
+        ){         
+          coin._markedForDeletion = true;
+          this._game._life++
+          this._extraLife.play();
+      }
+
+    });
+  
+  
+  
+  
+  
+  
   }
 
 }
