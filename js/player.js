@@ -3,6 +3,7 @@ import { Running } from "./playerStates.js";
 import { Jumping } from "./playerStates.js";
 import { Shooting } from "./playerStates.js";
 import { Dead } from "./playerStates.js";
+import { Explosion } from "./explosion.js";
 
 export class Player {
   constructor(game){
@@ -142,11 +143,9 @@ export class Player {
         enemy._y + enemy._height > this._y
         ){
           if(enemy._image.id === 'landMine'){
-            enemy._image = enemy._explosionImage;    
-            enemy._width = 100;
-            enemy._height = 100;
-            enemy._y = this._game._height - this._game._groundMargin - enemy._height -7
-
+            enemy._exploded = true
+            this._game._life--
+            this._playerLostLife.play()
             this._game._landMine._explosionSound.play()
           }
          

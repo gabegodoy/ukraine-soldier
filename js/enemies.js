@@ -6,6 +6,7 @@ export class Enemy {
     this._frameInterval = 1000/this._fps;
     this._frameTimer = 0;
     this._markedForDeletion = false;
+    this._exploded = false;
   }
 
   update(deltaTime){

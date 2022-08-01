@@ -4,6 +4,7 @@ import { Background } from "./background.js";
 import { WalkingEnemy } from "./enemies.js";
 import { AirplaneEnemy } from "./enemies.js";
 import { LandMine } from "./enemies.js";
+import { Explosion } from "./explosion.js";
 import { Enemy } from "./enemies.js";
 import { UI } from "./UI.js";
 import { ExtraLife } from "./extraLife.js";
@@ -45,6 +46,7 @@ window.addEventListener('load', function(){
       this._fontColor = '#0057b7';
       this._player._currentState = this._player._states[0];
       this._player._currentState.enter();
+      this._explodedBombs = []
     }
     
     update(deltaTime){
@@ -61,6 +63,14 @@ window.addEventListener('load', function(){
       this._enemies.forEach(enemy => {
         enemy.update(deltaTime)
         if (enemy._markedForDeletion) this._enemies.splice(this._enemies.indexOf(enemy), 1)
+        if (enemy._exploded){
+          this._enemies.splice(this._enemies.indexOf(enemy), 1);
+          this._explodedBombs.push(new Explosion(this, enemy._x))
+          setTimeout(() => {
+            this._explodedBombs.splice(this._enemies.indexOf(enemy), 1)
+          }, 800);
+       //   console.log('update')
+        }
       })
       
       // Life Coins      
@@ -75,6 +85,10 @@ window.addEventListener('load', function(){
         if (coin._markedForDeletion) this._lifeCoin.splice(this._lifeCoin.indexOf(coin), 1)
       })
 
+      
+
+
+
     }
 
     draw(context){
@@ -87,6 +101,10 @@ window.addEventListener('load', function(){
       })
       this._player.draw(context);
       this._UI.draw(context);
+      this._explodedBombs.forEach(bomb => {
+        bomb.draw(context)
+        //console.log('update')
+      })
     }
 
     addEnemy(){
