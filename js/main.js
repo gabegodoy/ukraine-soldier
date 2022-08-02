@@ -4,6 +4,7 @@ import { Background } from "./background.js";
 import { WalkingEnemy } from "./enemies.js";
 import { AirplaneEnemy } from "./enemies.js";
 import { LandMine } from "./enemies.js";
+import { Boss } from "./boss.js";
 import { Explosion } from "./explosion.js";
 import { Enemy } from "./enemies.js";
 import { UI } from "./UI.js";
@@ -29,6 +30,7 @@ window.addEventListener('load', function(){
       this._walkingEnemy = new WalkingEnemy(this);
       this._airplaneEnemy = new AirplaneEnemy(this);
       this._landMine = new LandMine(this);
+      this._boss = new Boss(this);
       this._player = new Player(this);
       this._background = new Background(this);
       this._input = new InputHandler(this);
@@ -47,11 +49,13 @@ window.addEventListener('load', function(){
       this._player._currentState = this._player._states[0];
       this._player._currentState.enter();
       this._explodedBombs = []
+      this._newBoss= []
     }
     
     update(deltaTime){
       this._background.update();
       this._player.update(this._input._keys, deltaTime)
+      this._boss.update(deltaTime)
       
       // Enemies      
       if (this._enemyTimer > this._enemyInterval) {
@@ -88,23 +92,17 @@ window.addEventListener('load', function(){
       
 
 
-
     }
 
     draw(context){
       this._background.draw(context);
-      this._lifeCoin.forEach(coin => {
-        coin.draw(context)
-      })
-      this._enemies.forEach(enemy => {
-        enemy.draw(context)
-      })
+      this._lifeCoin.forEach(coin => { coin.draw(context) })
+      this._enemies.forEach(enemy => { enemy.draw(context) })
+      //this._newBoss.forEach(boss => { boss.draw(context) })
+      this._boss.draw(context);
       this._player.draw(context);
       this._UI.draw(context);
-      this._explodedBombs.forEach(bomb => {
-        bomb.draw(context)
-        //console.log('update')
-      })
+      this._explodedBombs.forEach(bomb => { bomb.draw(context) })
     }
 
     addEnemy(){
@@ -120,15 +118,11 @@ window.addEventListener('load', function(){
           this._enemies.push(new AirplaneEnemy(this))
         }
       }
-      //else if (this._score >= 2) create Puttin
     }
 
     addCoin(){
       if(this._speed > 0) this._lifeCoin.push(new ExtraLife (this))
     }
-
-
-
   }
   
   
