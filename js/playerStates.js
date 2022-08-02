@@ -91,104 +91,30 @@ export class Shooting extends State {
   constructor(game){
     super('SHOOTING', game)
     this._shots = 0;
+    this._maxShots = 20;
   }
   enter(){
     //this._firstEnemy = this._game._enemies[0]
     this._shots++
 
-    if (this._shots >= 20 &&
+    if (this._shots >= this._maxShots &&
         this._game._enemies.length > 0){
 
+          this._firstEnemy = this._game._enemies.find(enemy => enemy._image.id === 'enemyWalk')
+          this._game._score++; 
+          this._game._player._enemyDeath.play()
+  
+          this._firstEnemy._image = this._firstEnemy._images[2]
+          this._firstEnemy._speedX = 0
+          this._firstEnemy._width = 171
+          this._firstEnemy._height = 125
+          this._firstEnemy._y = 340
 
-          //console.log(this._game._enemies[0])
-          //console.log(this._game._enemies[indexOf(element => element._image.id === 'enemyWalk')])
-          //console.log(this._game._enemies[findIndex(WalkingEnemy)])
-          //console.log(this._game._enemies[findIndex(element => element._image.id === 'enemyWalk')])
-          
-/* 
-          this._game._enemies.forEach(enemy => {
-            if (enemy._image.id === 'enemyWalk') {
-
-              this._game._score++; 
-              this._game._player._enemyDeath.play()
-      
-              enemy._image = enemy._images[2]
-              enemy._speedX = 0
-              enemy._width = 171
-              enemy._height = 125
-              enemy._y = 340
-              this._interval = setInterval(() => {
-                enemy._markedForDeletion = true
-                clearInterval(this._interval)
-                }, 500);
-              
-            }
-          }); 
- */
-/*          
-          for (let i=0; i < this._game._enemies.length ;i++){
-            if (this._game._enemies[i]._image.id === 'enemyWalk') {
-
-              console.log(this._game._enemies)
-              console.log(this._game._enemies[i])
-
-              this._game._score++; 
-              this._game._player._enemyDeath.play()
-      
-              this._game._enemies[i]._image = this._game._enemies[i]._images[2]
-              this._game._enemies[i]._speedX = 0
-              this._game._enemies[i]._width = 171
-              this._game._enemies[i]._height = 125
-              this._game._enemies[i]._y = 340
-              this._interval = setInterval(() => {
-                this._game._enemies[i]._markedForDeletion = true
-                clearInterval(this._interval)
-                }, 500);
-            }
-              
-          } 
-*/
-
-           
-          this._game._enemies.forEach(enemy => {
-            if (enemy._image.id === 'enemyWalk') {
-
-              this._game._score++; 
-              this._game._player._enemyDeath.play()
-      
-              enemy._image = enemy._images[2]
-              enemy._speedX = 0
-              enemy._width = 171
-              enemy._height = 125
-              enemy._y = 340
-              this._interval = setInterval(() => {
-                enemy._markedForDeletion = true
-                clearInterval(this._interval)
-                }, 500);
-              
-            }
-          }); 
-
-
-/* 
-      if (this._firstEnemy._image.id === 'enemyWalk') {
-        
-        this._game._score++; 
-        this._game._player._enemyDeath.play()
-
-        this._firstEnemy._image = this._firstEnemy._images[2]
-        this._firstEnemy._speedX = 0
-        this._firstEnemy._width = 171
-        this._firstEnemy._height = 125
-        this._firstEnemy._y = 340
-        this._interval = setInterval(() => {
-          this._firstEnemy._markedForDeletion = true
-          clearInterval(this._interval)
+          setTimeout(() => {
+            this._firstEnemy._markedForDeletion = true
           }, 500);
-      } 
-*/
-      console.log(this._shots)
-      this._shots = 0
+
+          this._shots = 0
     
     }
   }
