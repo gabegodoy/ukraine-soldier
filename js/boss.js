@@ -31,7 +31,7 @@ export class Boss{
   
   draw(context){
     context.drawImage(this._image, this._x, this._y, this._width, this._height);
-    //this._game._airplaneEnemy._airplaneSound.play()
+    //this._game._airplaneEnemy._airplaneSound.play()ma
     
   }
 }
