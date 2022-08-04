@@ -58,21 +58,53 @@ export class UI{
       }
     }
   }
-  
-  
-  
-  
-  
+    
 }
 
+
+//TIMER CONFIG AND PRINT
 const timer = document.querySelector('#timer');
 let timerCount = 10;
-
 
 export function startTimer(){
   let timerStart = setInterval(() => {
     timerCount --
     timer.innerHTML = timerCount
-    if (timerCount === 0) clearInterval(timerStart)
+    if (timerCount === 0){
+      gameOverBackground.style.display = 'none'
+      donationSummaryBackground.style.display = 'flex'
+      clearInterval(timerStart)
+    } 
   }, 1000);
 }
+
+
+
+//DONATION SUMMARY
+const donationSummaryBackground = document.querySelector('.donation__summary__background');
+const donatinoBackground = document.querySelector('.donation__background');
+const closeSummaryButton = document.querySelector('#closeSummary');
+
+closeSummaryButton.addEventListener('click', () => {
+  donationSummaryBackground.style.display = 'none'
+  donatinoBackground.style.display = 'flex'
+})
+
+
+
+//GAME OVER - YES/NO BUTTON
+const gameOverBackground = document.querySelector('.game-over__background');
+const gameOverBtn = document.querySelectorAll('#gameOverBtn');
+console.log(gameOverBtn)
+gameOverBtn.forEach(button => {
+  button.addEventListener('click', () =>{
+    if(button.innerHTML === 'yes') console.log('play again') //play game over again
+    else if(button.innerHTML === 'no') {
+      gameOverBackground.style.display = 'none'
+      donationSummaryBackground.style.display = 'flex' 
+    }
+  }) 
+});
+
+
+//DONATION MAIN PAGE
