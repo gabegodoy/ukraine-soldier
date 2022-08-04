@@ -8,7 +8,6 @@ export class Explosion{
     this._speedX = this._game._speed;
     this._speedY = 0;
 
-    //this._x = landBomb._width - x
     this._x = enemyX - 265
     this._y = this._game._height - this._height - this._game._groundMargin - 5;    
 
@@ -27,8 +26,6 @@ export class Explosion{
   update(deltaTime){
     this._x -= this._game._speed;
     
-    //CHECK OFF SCREEN
-    //if (this._x + this._width < 0) this._markedForDeletion = true;
   }
   draw(context){
     

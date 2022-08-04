@@ -94,7 +94,6 @@ export class Shooting extends State {
     this._maxShots = 20;
   }
   enter(){
-    //this._firstEnemy = this._game._enemies[0]
     this._shots++
 
     if (this._shots >= this._maxShots &&

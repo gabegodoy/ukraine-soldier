@@ -108,7 +108,6 @@ export class LandMine extends Enemy {
     this._landMine = document.getElementById('landMine')
       
     this._image = this._landMine;
-  //  this._image = this._explosionImage;
   }
   
   update(deltaTime){
