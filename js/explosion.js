@@ -37,9 +37,7 @@ export class Explosion{
           
           if (this._frameX === this._maxFrame) this._frameX = 1
           else {this._frameX++}
-          console.log(this._frameX)
         }
-        console.log(this._frameX)
         this._gameFrame++
         
     //DRAWING BOMB EXPLOSION
