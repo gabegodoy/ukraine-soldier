@@ -1,0 +1,59 @@
+.footer__container{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 4rem;
+
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--blue);
+  margin-top: 2rem;
+  padding: 0 6rem;
+
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.footer__container img{
+  display: block;
+}
+
+.footer__personal{
+  display: flex;
+  align-items: center;
+  gap: 3.125rem;
+}
+
+.footer__personal__name{
+  border-right: solid white 1px;
+  padding-right: 3.125rem;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.footer__personal__profession{
+  font-weight: 200;
+  font-size: 1.2rem;
+}
+
+
+.footer__media__list{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3.125rem;
+  list-style: none;
+}
+
+.footer__media__list img{
+  width: 2.5rem;
+  filter: invert(100%);
+}
+
+#portfolio__image{
+  filter: none;
+  border: solid gainsboro 1px;
+  border-radius: 999px;
+}
