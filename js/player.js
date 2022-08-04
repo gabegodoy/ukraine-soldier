@@ -121,9 +121,13 @@ export class Player {
     this._width = 168
     this._height = 90.5
     this._game._groundMargin = 68;
+    this._y = this._game._height - 140
     this._image = this._images[4]
     this._maxSpeed = 0
     this._playerDeath.play()
+    console.log(this._game._gameOver)
+    this._game._gameOver = true;
+    console.log(this._game._gameOver)
   }
   setState(state, speed){
     this._currentState = this._states[state]

@@ -49,7 +49,7 @@ window.addEventListener('load', function(){
       this._player._currentState = this._player._states[0];
       this._player._currentState.enter();
       this._explodedBombs = []
-      this._newBoss= []
+      this._gameOver = false;
     }
     
     update(deltaTime){
@@ -73,7 +73,6 @@ window.addEventListener('load', function(){
           setTimeout(() => {
             this._explodedBombs.splice(this._enemies.indexOf(enemy), 1)
           }, 800);
-       //   console.log('update')
         }
       })
       
@@ -98,7 +97,6 @@ window.addEventListener('load', function(){
       this._background.draw(context);
       this._lifeCoin.forEach(coin => { coin.draw(context) })
       this._enemies.forEach(enemy => { enemy.draw(context) })
-      //this._newBoss.forEach(boss => { boss.draw(context) })
       this._boss.draw(context);
       this._player.draw(context);
       this._UI.draw(context);
@@ -135,9 +133,13 @@ window.addEventListener('load', function(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     game.update(deltaTime);
     game.draw(ctx);
-    requestAnimationFrame(animate)
-    
+    if(!game._gameOver) requestAnimationFrame(animate)    
   }
   animate(0)
 
+  
+  const gameOverBackground = document.querySelector('.game-over__container');
+  gameOverBackground.style.width = game._width+'px'
+  gameOverBackground.style.height = game._height+'px'
+  
 })
