@@ -10,19 +10,33 @@ import { Enemy } from "./enemies.js";
 import { UI } from "./UI.js";
 import { ExtraLife } from "./extraLife.js";
 
+const playBtn = document.querySelector('#playBtn')
+const instructionsBackground = document.querySelector('.instructions__background')
+const canvas = document.getElementById('myCanvas');
+const backgroundSound = document.querySelector('#backgroundSound')
+backgroundSound.volume = .5
+
+
+
+playBtn.addEventListener('click', function playGame() {
+  
+  instructionsBackground.style.display = 'none'
+  canvas.style.display = 'block'
+  backgroundSound.play()
+})
 
 window.addEventListener('load', function(){
   const canvas = this.document.getElementById('myCanvas');
   const ctx = canvas.getContext('2d');
-
-
-
-  canvas.width = 1000;
-  canvas.height = 500;
   
-  class Game{
-    constructor(width, height){
-      this._width = width;
+    
+    
+    canvas.width = 1000;
+    canvas.height = 500;
+    
+    class Game{
+      constructor(width, height){
+        this._width = width;
       this._height = height;
       this._speed = 0;
       this._groundMargin = 75;
@@ -72,7 +86,7 @@ window.addEventListener('load', function(){
           this._explodedBombs.push(new Explosion(this, enemy._x))
           setTimeout(() => {
             this._explodedBombs.splice(this._enemies.indexOf(enemy), 1)
-          }, 800);
+          }, 700);
         }
       })
       
@@ -87,10 +101,10 @@ window.addEventListener('load', function(){
         coin.update(deltaTime)
         if (coin._markedForDeletion) this._lifeCoin.splice(this._lifeCoin.indexOf(coin), 1)
       })
-
       
-
-
+      
+      
+      
     }
 
     draw(context){
@@ -106,7 +120,7 @@ window.addEventListener('load', function(){
     addEnemy(){
       if(this._score < 20 &&
         this._life > 0){
-        if(Math.random() < 0.3){
+          if(Math.random() < 0.3){
         this._enemies.push(new LandMine(this))
         }
         if(this._speed > 0){ 
@@ -126,7 +140,7 @@ window.addEventListener('load', function(){
   
   const game = new Game(canvas.width, canvas.height)
   let lastTime = 0;
-
+  
   function animate(timeStamp){
     const deltaTime = timeStamp - lastTime;
     lastTime = timeStamp;
@@ -136,7 +150,7 @@ window.addEventListener('load', function(){
     if(!game._gameOver) requestAnimationFrame(animate)    
   }
   animate(0)
-
+  
   
   const gameOverBackground = document.querySelector('.game-over__container');
   gameOverBackground.style.width = game._width+'px'
