@@ -125,9 +125,11 @@ export class Player {
     this._image = this._images[4]
     this._maxSpeed = 0
     this._playerDeath.play()
-    console.log(this._game._gameOver)
-    this._game._gameOver = true;
-    console.log(this._game._gameOver)
+
+    setTimeout(() => {
+      this._game._gameOver = true;
+    }, 1000);
+
   }
   setState(state, speed){
     this._currentState = this._states[state]
