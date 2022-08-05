@@ -12,6 +12,7 @@ export class Boss{
     this._x = -this._width;
     this._y = Math.random() * ((this._game._height - this._game._groundMargin - this._height) - 0) + 0;
     this._image = document.querySelector('#putinAirplane');    
+    this._winSound = document.querySelector('#winSound');
 
     this._angle = 0;
     this._va = Math.random() * .1 + .1;   
@@ -23,7 +24,8 @@ export class Boss{
      this._angle += this._va
      this._y -= Math.sin(this._angle)
      this._y -= .6
-    
+      
+     this._winSound.play()
 
      //GAME OVER
      setInterval(() => {
