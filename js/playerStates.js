@@ -96,26 +96,31 @@ export class Shooting extends State {
   enter(){
     this._shots++
 
-    if (this._shots >= this._maxShots &&
-        this._game._enemies.length > 0){
 
-          this._firstEnemy = this._game._enemies.find(enemy => enemy._image.id === 'enemyWalk')
-          this._game._score++; 
-          this._game._player._enemyDeath.play()
-  
-          this._firstEnemy._image = this._firstEnemy._images[2]
-          this._firstEnemy._speedX = 0
-          this._firstEnemy._width = 171
-          this._firstEnemy._height = 125
-          this._firstEnemy._y = 340
-
-          setTimeout(() => {
-            this._firstEnemy._markedForDeletion = true
-          }, 500);
-
-          this._shots = 0
+    console.log(this._game._enemies.find(element => element._image.id === 'enemyWalk'))
     
-    }
+    this._firstEnemy = this._game._enemies.find(enemy => enemy._image.id === 'enemyWalk')
+    if (this._shots >= this._maxShots &&
+      this._game._enemies.length > 0){
+        
+        if (this._firstEnemy !== undefined){
+            this._game._score++; 
+            this._game._player._enemyDeath.play()
+    
+            this._firstEnemy._image = this._firstEnemy._images[2]
+            this._firstEnemy._speedX = 0
+            this._firstEnemy._width = 171
+            this._firstEnemy._height = 125
+            this._firstEnemy._y = 340
+            
+            setTimeout(() => {
+              this._firstEnemy._markedForDeletion = true
+            }, 500);
+            
+            this._shots = 0
+            
+          }
+        }
   }
   handleInput(input){
     if (this._game._player.onGround()) this._game._player.setState(states.STOPPED, 0)
