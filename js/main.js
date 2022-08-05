@@ -11,6 +11,9 @@ import { UI } from "./UI.js";
 import { ExtraLife } from "./extraLife.js";
 
 const playBtn = document.querySelector('#playBtn')
+const playBtn2 = document.querySelector('#playBtn2')
+const instructionsBtn = document.querySelector('#instructionsBtn')
+const homeBackground = document.querySelector('.home-page__background')
 const instructionsBackground = document.querySelector('.instructions__background')
 const canvas = document.getElementById('myCanvas');
 const backgroundSound = document.querySelector('#backgroundSound')
@@ -18,19 +21,32 @@ backgroundSound.volume = .5
 
 
 
-playBtn.addEventListener('click', function playGame() {
-  
-  instructionsBackground.style.display = 'none'
+playBtn.addEventListener('click', () => {
+  homeBackground.style.display = 'none'
   canvas.style.display = 'block'
   backgroundSound.play()
 })
 
-window.addEventListener('load', function(){
+playBtn2.addEventListener('click', () => {
+  instructionsBackground.style.display = 'none'
+  canvas.style.display = 'block'
+  
+  backgroundSound.play()
+})
+
+instructionsBtn.addEventListener('click', () => {
+  homeBackground.style.display = 'none'
+  instructionsBackground.style.display = 'flex'
+})
+
+
+
+
+window.addEventListener('load', function startGame(){
   const canvas = this.document.getElementById('myCanvas');
   const ctx = canvas.getContext('2d');
-  
-    
-    
+  const tryAgainBtn = this.document.querySelector('#gameOverBtnYes')
+       
     canvas.width = 1000;
     canvas.height = 500;
     
@@ -64,6 +80,9 @@ window.addEventListener('load', function(){
       this._player._currentState.enter();
       this._explodedBombs = []
       this._gameOver = false;
+
+      this._gameOverBackground = document.querySelector('.game-over__background');
+
     }
     
     update(deltaTime){
@@ -131,10 +150,18 @@ window.addEventListener('load', function(){
         }
       }
     }
-
     addCoin(){
       if(this._speed > 0) this._lifeCoin.push(new ExtraLife (this))
     }
+    
+
+/*     tryAgain(){
+      this._score = 0;
+      this._life = 3;
+      this._gameOver = false;
+      this._gameOverBackground.style.display = 'none'
+      animate(0);
+    } */
   }
   
   
@@ -150,10 +177,9 @@ window.addEventListener('load', function(){
     if(!game._gameOver) requestAnimationFrame(animate)    
   }
   animate(0)
-  
-  
-  const gameOverBackground = document.querySelector('.game-over__container');
-  gameOverBackground.style.width = game._width+'px'
-  gameOverBackground.style.height = game._height+'px'
+
+  const gameOverContainer = document.querySelector('.game-over__container');
+  gameOverContainer.style.width = game._width+'px'
+  gameOverContainer.style.height = game._height+'px'
   
 })

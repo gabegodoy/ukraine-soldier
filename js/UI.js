@@ -15,6 +15,9 @@ export class UI{
 
     this.__gameOverBackground = document.querySelector('.game-over__background');
   }
+/*   get game (){
+    return this._game._tryAgain()
+  } */
   draw(context){
 
     //DRAWING SCORE
@@ -62,6 +65,8 @@ export class UI{
 }
 
 
+
+
 //TIMER CONFIG AND PRINT
 const timer = document.querySelector('#timer');
 let timerCount = 10;
@@ -95,10 +100,12 @@ closeSummaryButton.addEventListener('click', () => {
 //GAME OVER - YES/NO BUTTON
 const gameOverBackground = document.querySelector('.game-over__background');
 const gameOverBtn = document.querySelectorAll('#gameOverBtn');
-console.log(gameOverBtn)
+
 gameOverBtn.forEach(button => {
   button.addEventListener('click', () =>{
-    if(button.innerHTML === 'yes') console.log('play again') //play game over again
+    if(button.innerHTML === 'yes') {
+      window.location.href = "index.html";  
+    }
     else if(button.innerHTML === 'no') {
       gameOverBackground.style.display = 'none'
       donationSummaryBackground.style.display = 'flex' 
@@ -107,4 +114,5 @@ gameOverBtn.forEach(button => {
 });
 
 
-//DONATION MAIN PAGE
+//TRY AGAIN
+//const UI = new UI(game)
