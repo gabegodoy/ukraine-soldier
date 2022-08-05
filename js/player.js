@@ -14,7 +14,6 @@ export class Player {
     this._y = (this._game._height - this._height - this._game._groundMargin);
     this._vy = 0;
     this._weight = 1;
-    console.log(this._game._enemy)
 
     this._images = document.querySelectorAll('#player'); 
     this._image = this._images[0];
@@ -121,7 +120,7 @@ export class Player {
     this._width = 168
     this._height = 90.5
     this._game._groundMargin = 68;
-    this._y = this._game._height - 140
+    //this._y = this._game._height - 140
     this._image = this._images[4]
     this._maxSpeed = 0
     this._playerDeath.play()
