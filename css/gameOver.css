@@ -11,6 +11,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
+
 }
 
 .game-over__container{
@@ -54,6 +55,22 @@
   -webkit-text-stroke-color: var(--blue);
 
   text-shadow: var(--blue) 0px 0px 10px;
+}
+
+.game-over__underTittle{
+  display: none;
+  margin-top: 2rem;
+  color: white;
+  text-align: center;
+  width: 90%;
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+
+.game-over__underTittle strong{
+  -webkit-text-fill-color: red;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: white;
 }
 
 .game-over__timer{

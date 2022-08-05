@@ -251,7 +251,10 @@
   .instructions__footer__info__container{
     width: 63%;
   }
-  p, h4{
+  .instructions__keyboard__tittle, .instructions__footer__info__text, .instructions__footer__start__tittle{
     font-size: .9rem;
+  }
+  .instructions__footer__start__innerContainer{
+    height: 60%;
   }
 }

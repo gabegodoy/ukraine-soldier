@@ -43,21 +43,29 @@ export class UI{
 
     //DRAWING GAME OVER
      if(this._game._gameOver){
-    
-      console.log('Game over')
+
+      this.__gameOverBackground.style.display = 'flex'
+      startTimer()
+      
       if(this._game._score >= 20){
         console.log('You win')
-        
+          
         //WIN MESSAGE
+        this._gameOverTittle = document.querySelector('.game-over__tittle')
+        this._gameOverWinSubtitle = document.querySelector('.game-over__underTittle')
+        this._gameOverImage = document.querySelectorAll('.game-over__image')
+
+        this._gameOverTittle.innerHTML = 'Congrats!'
+        this._gameOverWinSubtitle.style.display = 'block'
+        this._gameOverImage.forEach(image => image.src = 'assets/images/life.png')           
       }
       else{
         console.log('You Lost')
         //TRY AGAIN
         //PRINT GAME OVER
-        this.__gameOverBackground.style.display = 'flex'
         //DRAWING TIMER
         //this._timer.innerHTML = this._timerCount
-        startTimer()
+
       }
     }
   }

@@ -24,6 +24,14 @@ export class Boss{
      this._y -= Math.sin(this._angle)
      this._y -= .6
     
+
+     //GAME OVER
+     setInterval(() => {
+       this._game._gameOver = true;
+      
+     }, 6000);
+     
+
      //CHECK OFF SCREEN
      if (this._x >= this._game._width) this._markedForDeletion = true;
     } 
