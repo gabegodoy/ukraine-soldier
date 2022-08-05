@@ -61,8 +61,8 @@ window.addEventListener('load', function startGame(){
       this._airplaneEnemy = new AirplaneEnemy(this);
       this._landMine = new LandMine(this);
       this._boss = new Boss(this);
-      this._player = new Player(this);
       this._background = new Background(this);
+      this._player = new Player(this);
       this._input = new InputHandler(this);
       this._UI = new UI(this);
       this._extraLife = new ExtraLife (this);

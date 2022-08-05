@@ -52,8 +52,8 @@ export class Player {
       this._speed = this._maxSpeed;         
     }
     
-    else if (input.includes('ArrowLeft')){ 
-      this._speed = -this._maxSpeed;
+    else if (input.includes('ArrowLeft')){
+      this._speed = -this._maxSpeed*2;
     }
     
     else this._speed = 0;
