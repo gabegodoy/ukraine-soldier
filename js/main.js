@@ -86,6 +86,12 @@ window.addEventListener('load', function startGame(){
     }
     
     update(deltaTime){
+
+      setInterval(() => {
+        console.log(this._currentState)
+        
+      }, 2000);
+
       this._background.update();
       this._player.update(this._input._keys, deltaTime)
       this._boss.update(deltaTime)

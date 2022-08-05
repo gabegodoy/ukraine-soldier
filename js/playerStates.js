@@ -48,6 +48,9 @@ export class Running extends State {
     if (input.includes('ArrowUp')){
       this._game._player.setState(states.JUMPING, 3);
     }
+    else if (input.includes(' ') && !input.includes('ArrowRight') && !input.includes('ArrowLeft')){
+      this._game._player.setState(states.SHOOTING, .5);
+    }
     else if (input.length == 0){
       this._game._player.setState(states.STOPPED, 0);
     }
@@ -71,11 +74,11 @@ export class Jumping extends State {
       this._game._player.setState(states.DEAD, 0);
     }
     else if (this._game._player.onGround()) this._game._player.setState(states.STOPPED, 0)
-/* 
-    else if (input.includes('ArrowLeft') || input.includes('ArrowRight') && !this._game._player.onGround()){
+    else if (input.includes('ArrowUp') && !this._game._player.onGround()){
       this._game._player.setState(states.JUMPING, 3);
     }
-    else if (input.includes('ArrowUp') && !this._game._player.onGround()){
+/* 
+    else if (input.includes('ArrowLeft') || input.includes('ArrowRight') && !this._game._player.onGround()){
       this._game._player.setState(states.JUMPING, 3);
     }
     else if (input.includes(' ') && !this._game._player.onGround()){
@@ -96,9 +99,6 @@ export class Shooting extends State {
   enter(){
     this._shots++
 
-
-    console.log(this._game._enemies.find(element => element._image.id === 'enemyWalk'))
-    
     this._firstEnemy = this._game._enemies.find(enemy => enemy._image.id === 'enemyWalk')
     if (this._shots >= this._maxShots &&
       this._game._enemies.length > 0){
@@ -124,7 +124,7 @@ export class Shooting extends State {
   }
   handleInput(input){
     if (this._game._player.onGround()) this._game._player.setState(states.STOPPED, 0)
-    else if (this._game._life === 0){
+    if (this._game._life === 0){
       this._game._player.setState(states.DEAD, 0);
     }
     
