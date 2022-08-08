@@ -26,6 +26,37 @@ canvas{
 
 }
 
-img{
+img, .mobile__view{
   display: none;
+}
+
+
+@media screen and (max-width: 1020px){
+  main{
+    display: none;
+  }
+
+  body{
+    background-color: white;
+  }
+  .mobile__view{
+    display: block;
+    text-align: center;
+    width: 80vw;
+    margin: 0 auto;
+    
+    margin-top: 50%;
+
+    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+
+  }
+
+  .mobile__view p{
+    margin-top: .5rem;
+  }
+
+  .mobile__view img{
+    display: block;
+  }
 }
